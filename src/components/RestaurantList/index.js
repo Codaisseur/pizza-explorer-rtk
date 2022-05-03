@@ -3,12 +3,15 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectRestaurantsWithPizzas } from "../../store/selectors";
 import { selectPizzas } from "../../store/pizzas/selectors";
+import { selectRestaurantsThatSellPizza } from "../../store/restaurants/selectors";
 
 export function RestaurantList() {
   const restaurants = useSelector(selectRestaurantsWithPizzas);
   const pizzas = useSelector(selectPizzas);
 
   const [selectedPizza, setSelectedPizza] = useState(pizzas[0].id);
+
+  const sellsPizza = useSelector(selectRestaurantsThatSellPizza(selectedPizza));
 
   return (
     <div>
@@ -43,6 +46,11 @@ export function RestaurantList() {
         </select>{" "}
         ?
       </h2>
+      <ul>
+        {sellsPizza.map((r) => (
+          <li key={r.id}>{r.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }

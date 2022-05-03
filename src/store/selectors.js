@@ -13,6 +13,5 @@ export const selectRestaurantsWithPizzas = (reduxState) => {
     // return the same restaurant obj but with a switched pizzas array
     return { ...rest, pizzas: replacePizzas };
   });
-  console.log(pizzas);
   return restWithPizzas;
 };
