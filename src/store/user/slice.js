@@ -11,7 +11,13 @@ export const userSlice = createSlice({
   name: "user",
   reducers: {
     toggleFavorites: (state, action) => {
-      console.log(action);
+      const idToAdd = action.payload;
+      // Check first if it's already a favorite or not
+      const newFavs = state.favorites.includes(idToAdd)
+        ? state.favorites.filter((nr) => nr !== idToAdd) // if it is => remove it
+        : [...state.favorites, idToAdd]; // if not, add it.
+
+      state.favorites = newFavs;
     },
   },
 });
