@@ -16,6 +16,7 @@ const PizzaList = () => {
         {pizzas.map((p) => (
           <li key={p.id}>
             <h4>{p.name}</h4>
+            <button>{user.favorites.includes(p.id) ? "♥" : "♡"}</button>
             <p>{p.description}</p>
             <span>
               Bought: <strong>{p.bought}</strong> times!
