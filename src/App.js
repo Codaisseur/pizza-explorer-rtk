@@ -1,4 +1,4 @@
-import { PizzaList, AddPizzaForm } from "./components";
+import { PizzaList, AddPizzaForm, RestaurantList } from "./components";
 import "./App.css";
 
 function App() {
@@ -6,6 +6,7 @@ function App() {
     <div className="App">
       <PizzaList />
       <AddPizzaForm />
+      <RestaurantList />
     </div>
   );
 }
