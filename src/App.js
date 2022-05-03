@@ -1,4 +1,4 @@
-import { PizzaList } from "./components/PizzaList";
+import { PizzaList } from "./components";
 import "./App.css";
 
 function App() {
