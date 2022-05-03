@@ -1,35 +1,50 @@
 // src/components/PizzaList.js
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectRestaurantsWithPizzas } from "../../store/selectors";
+import { selectPizzasSoldByRestaurant } from "../../store/selectors";
 import { selectPizzas } from "../../store/pizzas/selectors";
-import { selectRestaurantsThatSellPizza } from "../../store/restaurants/selectors";
+import {
+  selectRestaurantsThatSellPizza,
+  selectRestaurants,
+} from "../../store/restaurants/selectors";
 
 export function RestaurantList() {
-  const restaurants = useSelector(selectRestaurantsWithPizzas);
+  const restaurants = useSelector(selectRestaurants);
   const pizzas = useSelector(selectPizzas);
 
   const [selectedPizza, setSelectedPizza] = useState(pizzas[0].id);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(
+    restaurants[0].id
+  );
 
   const sellsPizza = useSelector(selectRestaurantsThatSellPizza(selectedPizza));
+  const productsSold = useSelector(
+    selectPizzasSoldByRestaurant(selectedRestaurant)
+  );
 
   return (
     <div>
-      <h1>Restaurants</h1>
-      <div style={{ display: "flex", justifyContent: "flex-start" }}>
-        <ul>
-          {restaurants.map((restaurant) => (
-            <li key={restaurant.id}>
-              <strong>{restaurant.name}</strong>
-              <ul>
-                {restaurant.pizzas.map((p) => (
-                  <li>{p.name}</li>
-                ))}
-              </ul>
-            </li>
+      <h2>
+        What does{" "}
+        <select
+          value={selectedRestaurant}
+          onChange={(e) => {
+            setSelectedRestaurant(parseInt(e.target.value));
+          }}
+        >
+          {restaurants.map((r) => (
+            <option key={r.id} value={r.id}>
+              {r.name}
+            </option>
           ))}
-        </ul>
-      </div>
+        </select>{" "}
+        sell ?
+      </h2>
+      <ul>
+        {productsSold.map((r) => (
+          <li key={r.id}>{r.name}</li>
+        ))}
+      </ul>
       <h2>
         Who sells{" "}
         <select
