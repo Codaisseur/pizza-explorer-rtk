@@ -1,10 +1,13 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../store/user/selectors";
 import { selectPizzas } from "../../store/pizzas/selectors";
+import { toggleFavorites } from "../../store/user/slice";
 
 const PizzaList = () => {
   const user = useSelector(selectUser);
   const pizzas = useSelector(selectPizzas);
+  const dispatch = useDispatch();
+
   return (
     <div>
       <h1>Pizza Explorer</h1>
@@ -16,7 +19,9 @@ const PizzaList = () => {
         {pizzas.map((p) => (
           <li key={p.id}>
             <h4>{p.name}</h4>
-            <button>{user.favorites.includes(p.id) ? "♥" : "♡"}</button>
+            <button onClick={() => dispatch(toggleFavorites(p.id))}>
+              {user.favorites.includes(p.id) ? "♥" : "♡"}
+            </button>
             <p>{p.description}</p>
             <span>
               Bought: <strong>{p.bought}</strong> times!

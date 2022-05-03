@@ -9,9 +9,13 @@ const initialState = {
 export const userSlice = createSlice({
   initialState,
   name: "user",
-  reducers: {},
+  reducers: {
+    toggleFavorites: (state, action) => {
+      console.log(action);
+    },
+  },
 });
 
-export const {} = userSlice.actions;
+export const { toggleFavorites } = userSlice.actions;
 
 export default userSlice.reducer;
