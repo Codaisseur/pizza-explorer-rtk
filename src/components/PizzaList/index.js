@@ -12,7 +12,17 @@ const PizzaList = () => {
         Welcome back, <strong>{user.name}</strong>! There are{" "}
         <strong>{pizzas.length}</strong> pizzas in total:
       </p>
-      <p>TODO: the list of pizzas</p>
+      <ul>
+        {pizzas.map((p) => (
+          <li key={p.id}>
+            <h4>{p.name}</h4>
+            <p>{p.description}</p>
+            <span>
+              Bought: <strong>{p.bought}</strong> times!
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
