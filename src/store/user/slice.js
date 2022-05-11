@@ -9,9 +9,34 @@ const initialState = {
 export const userSlice = createSlice({
   initialState,
   name: "user",
-  reducers: {},
+  reducers: {
+    toggleFav: (state, action) => {
+      console.log("im in the reducer! pizza clicked:", action.payload); // payload === pizzaId
+      // pizzaId
+      // user.favorites
+
+      // #1 => we push -> this is mutation => not good => but RTK is handling it under the hood using IMMER
+      // state.favorites.push(action.payload); // I HATE IT
+
+      // #2 New array + set to state
+      // const newArray = [...state.favorites, action.payload];
+      // state.favorites = newArray;
+
+      const pizzaId = action.payload;
+      const isItThere = state.favorites.includes(pizzaId);
+
+      if (isItThere) {
+        const filteredArray = state.favorites.filter((id) => id !== pizzaId);
+        state.favorites = filteredArray;
+      } else {
+        state.favorites.push(action.payload);
+        //const newArray = [...state.favorites, action.payload];
+        //state.favorites = newArray;
+      }
+    },
+  },
 });
 
-export const {} = userSlice.actions;
+export const { toggleFav } = userSlice.actions;
 
 export default userSlice.reducer;
